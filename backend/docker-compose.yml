@@ -1,0 +1,27 @@
+version: "3"
+services:
+  mongo:
+    container_name:  "Gotcha-mongo"
+    image: mongo:4.4.5-bionic
+    ports:
+      - "27017:27017"
+    volumes:
+      - ~/data:/data/db
+
+  backend:
+    container_name: "Gotcha-backend"
+    build:
+      context: '.'
+      dockerfile: "./dockerfile"
+    ports:
+      - "4000:4000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/Gotcha
+    depends_on:
+      - mongo
+    links:
+      - mongo
+
+
+
+

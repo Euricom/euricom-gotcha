@@ -1,0 +1,13 @@
+{
+  "name": "euricom-gotcha",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "frontend",
+      "backend"
+    ],
+    "nohoist": [
+      "**/@types/react*"
+    ]
+  }
+}

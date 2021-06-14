@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Rum Raisin';
+    src: url('RumRaisin-Regular.ttf') format('ttf'),
+        url('RumRaisin-Regular.woff2') format('woff2'),
+        url('RumRaisin-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
