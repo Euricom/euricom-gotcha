@@ -6,7 +6,7 @@ import Resizer from "react-image-file-resizer";
 const OpenCamera = ({
   onReset = () => {},
   onSuccess = () => {},
-  icon,
+  children,
 }: any) => {
   const history = useHistory();
   const { setState } = useAppState();
@@ -26,7 +26,7 @@ const OpenCamera = ({
       }
 
       onSuccess();
-      setState((state: any) => ({ ...state, image, tempImage }));
+      setState((state: any) => ({ ...state, image, tempImage}));
       history.push("/camera");
     });
 
@@ -52,7 +52,7 @@ const OpenCamera = ({
   return (
     <label
       htmlFor="camera"
-      className="w-11 h-11 flex justify-center items-center rounded-xl transition-transform transform scale-100"
+      className="w-96 h-96 max-w-full rounded-xl flex justify-center items-center"
       onClick={onReset}
     >
       <input
@@ -63,7 +63,7 @@ const OpenCamera = ({
         onChange={(e) => sendImage(e)}
         className="h-0 w-0"
       />
-      {icon}
+      {children}
     </label>
   );
 };
