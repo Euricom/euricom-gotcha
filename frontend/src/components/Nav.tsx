@@ -7,7 +7,6 @@ import { ReactComponent as CameraOff } from "../icons/camera-off.svg";
 import { ReactComponent as Crosshair } from "../icons/crosshair.svg";
 import { ReactComponent as Info } from "../icons/info.svg";
 import { ReactComponent as Check } from "../icons/check-circle.svg";
-import OpenCamera from "./OpenCamera";
 
 interface NavButtonProps {
   icon: ReactNode;
@@ -15,7 +14,6 @@ interface NavButtonProps {
 }
 
 const NavButton = ({ icon, href = "" }: NavButtonProps) => {
-
   return (
     <NavLink
       exact
@@ -29,17 +27,15 @@ const NavButton = ({ icon, href = "" }: NavButtonProps) => {
 };
 
 const Nav = () => {
-
-  const { state, setState, user } = useAppState();
+  const { user } = useAppState();
   const { data } = useGetAttempt(user?._id);
 
   return (
     <nav className="absolute bottom-0 container text-gray-500 bg-gray-100 h-16 flex justify-around items-center border-t border-gray-200">
       <NavButton href="/target" icon={<Crosshair />} />
-      {!user?.killed && !!data?.length && <NavButton href="/attempt" icon={<Check></Check>}></NavButton>}
-      {user?.killed && <NavButton href="/" icon={<CameraOff></CameraOff>}></NavButton>}
-      {!user?.killed && !data?.length && (state?.hasImage ? <NavButton href="/camera" icon={<Camera></Camera>}></NavButton>
-       : <OpenCamera onSuccess={() => setState((state:any) => ({...state, hasImage: true}))}  icon={<Camera/>}></OpenCamera>)}
+      {!user?.killed && !!data?.length && <NavButton href="/attempt" icon={<Check/>}></NavButton>}
+      {user?.killed && <NavButton href="/" icon={<CameraOff/>}></NavButton>}
+      {!user?.killed && !data?.length && <NavButton href="/camera" icon={<Camera className="w-6 h-6"/>}></NavButton>}
       <NavButton href="/info" icon={<Info />} />
     </nav>
   );

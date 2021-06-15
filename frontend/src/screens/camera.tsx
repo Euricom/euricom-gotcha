@@ -3,22 +3,19 @@ import React,{ useState } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import OpenCamera from "../components/OpenCamera";
 import TitleAndText from "../components/TitleAndText";
 import { useAppState } from "../hooks/useAppState";
-import { ReactComponent as ArrowLeft } from "../icons/arrow-left.svg";
+import { ReactComponent as Camera } from "../icons/camera.svg";
 
 const CameraScreen = () => {
   const history = useHistory();
   const [ answer, setAnswer] = useState('');
-  const { user, setState, state } = useAppState();
-
-  if (!state?.hasImage) {
-    history.push('/target')
-  }
+  const { user, state, setState } = useAppState();
 
   const onReset = () => {
+    setState({ tempImage: null})
     history.push("/target");
-    setState((state:any) => ({...state, hasImage: false}));
   }
 
   const registerGotcha = () => {
@@ -39,13 +36,14 @@ const CameraScreen = () => {
 
   return (
     <div className="flex flex-col justify-start items-center border-r border-l border-gray-300 h-screen w-full pb-16">
-      <div className="container py-4">
-        <button type="button" onClick={onReset}>
-          <ArrowLeft />
-        </button>
-      </div>
       <div className="container py-4 flex flex-col justify-between flex-1">
-        <img className="w-96 h-96 object-cover rounded-xl" height="512px" width="512px" src={state?.tempImage} alt={`${user?.target?.userName}`}/>
+        {!state?.tempImage && <OpenCamera>
+          <div className="w-full h-full border-2 border-dashed border-gray-400 flex flex-col items-center justify-center cursor-pointer rounded-xl">
+            <Camera className="w-16 text-gray-400"/>
+            <p className="text-gray-400 font-roboto text-lg font-bold">Click to add image</p>
+          </div>
+          </OpenCamera>}
+        {state?.tempImage && <OpenCamera><img className="w-96 h-96 object-cover rounded-xl" height="512px" width="512px" src={state?.tempImage} alt={`${user?.target?.userName}`}/></OpenCamera>}
 
         <TitleAndText
           title="Question:"
