@@ -22,7 +22,7 @@ export class TaskService {
   private readonly logger = new Logger(TaskService.name);
   private readonly cca = new msal.ConfidentialClientApplication(config);
 
-  @Cron('* * */4 * * *')
+  @Cron('0 0 * * *')
   async handleCron() {
     const clientCredentialRequest = {
       scopes: ['https://graph.microsoft.com/.default'],

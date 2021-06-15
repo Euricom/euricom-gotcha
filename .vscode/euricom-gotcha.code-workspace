@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "..",
+		},
+		{
+			"name": "Backend",
+			"path": "../backend"
+		},
+		{
+			"name": "Frontend",
+			"path": "../frontend"
+		}
+	],
+	"settings": {},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "start",
+				"type": "shell",
+				"command": "cd backend && yarn start:dev && cd ../frontend &&  yarn start"
+			}
+		]
+	}
+}
