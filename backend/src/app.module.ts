@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
-import { FeedModule } from './feed/feed.module';
 import { AttemptModule } from './attempt/attempt.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import * as dotenv from 'dotenv';
@@ -12,7 +11,6 @@ dotenv.config();
 @Module({
   imports: [
     UserModule,
-    FeedModule,
     AttemptModule,
     ScheduleModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URL, { useFindAndModify: false }),

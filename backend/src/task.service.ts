@@ -22,32 +22,34 @@ export class TaskService {
   private readonly logger = new Logger(TaskService.name);
   private readonly cca = new msal.ConfidentialClientApplication(config);
 
-  @Cron('0 0 * * *')
-  async handleCron() {
-    const clientCredentialRequest = {
-      scopes: ['https://graph.microsoft.com/.default'],
-    };
+  // Cron job does not work like this in Heroku use 'FetchAzureUsers' instead of UserService.
 
-    const response = await this.cca.acquireTokenByClientCredential(
-      clientCredentialRequest,
-    );
+  // @Cron('0 0 * * *')
+  // async handleCron() {
+  //   const clientCredentialRequest = {
+  //     scopes: ['https://graph.microsoft.com/.default'],
+  //   };
 
-    try {
-      const data = await axios.get('https://graph.microsoft.com/v1.0/users', {
-        headers: {
-          Authorization: response.tokenType + ' ' + response.accessToken,
-        },
-      });
+  //   const response = await this.cca.acquireTokenByClientCredential(
+  //     clientCredentialRequest,
+  //   );
 
-      const validUsers = data?.data?.value.filter((user: any) => {
-        return user?.mail?.includes('@euri.com');
-      });
+  //   try {
+  //     const { data } = await axios.get(
+  //       `https://graph.microsoft.com/v1.0/groups/${process.env.GROUP_ID}/members`,
+  //       {
+  //         headers: {
+  //           Authorization: response.tokenType + ' ' + response.accessToken,
+  //         },
+  //       },
+  //     );
 
-      this.userService.addUsers(validUsers);
-    } catch (err) {
-      console.log(err);
-    }
+  //     // console.log(data)
+  //     this.userService.addUsers(data.value);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
 
-    this.logger.debug('Called when the current second is 45');
-  }
+  //   this.logger.debug('Azure users fetched');
+  // }
 }

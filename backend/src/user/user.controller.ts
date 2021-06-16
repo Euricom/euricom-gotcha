@@ -5,9 +5,9 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
-  getCurrentUser() {
-    return this.userService.getCurrentUser('asdf');
+  @Get('/count')
+  getFeedCount() {
+    return this.userService.getFeedCount();
   }
 
   @Get(':id')
@@ -23,5 +23,12 @@ export class UserController {
   @Post('/kill/:id')
   killTarget(@Param('id') id) {
     return this.userService.killTarget(id);
+  }
+
+  @Post('/fetchAzureUsers')
+  fetchAzureUsers(@Body() body: any) {
+    if (body.secKey === process.env.SECKEY) {
+      this.userService.fetchAzureUsers();
+    }
   }
 }

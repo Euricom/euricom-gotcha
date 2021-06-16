@@ -1,15 +1,16 @@
 {
 	"folders": [
 		{
-			"path": "..",
-		},
-		{
-			"name": "Backend",
-			"path": "../backend"
+			"name": "euricom-gotcha",
+			"path": ".."
 		},
 		{
 			"name": "Frontend",
 			"path": "../frontend"
+		},
+		{
+			"name": "Backend",
+			"path": "../backend"
 		}
 	],
 	"settings": {},
