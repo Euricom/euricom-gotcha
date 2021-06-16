@@ -52,7 +52,6 @@ export class AttemptController {
       }),
     }),
   )
-
   addAttempt(@Param('id') id: string, @UploadedFile() file, @Body() body) {
     return this.attemptService.addAttempt(id, file.path, body);
   }
