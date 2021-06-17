@@ -29,6 +29,8 @@ export class UserController {
   fetchAzureUsers(@Body() body: any) {
     if (body.secKey === process.env.SECKEY) {
       this.userService.fetchAzureUsers();
+    } else {
+      console.log('Incorrect seckey passed to generate users');
     }
   }
 }
