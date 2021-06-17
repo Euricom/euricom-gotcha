@@ -37,8 +37,8 @@ const OpenCamera = ({
     new Promise((resolve) => {
       Resizer.imageFileResizer(
         file,
-        300,
-        300,
+        1028,
+        1028,
         "JPEG",
         80,
         0,
