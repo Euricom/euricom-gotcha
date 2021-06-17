@@ -15,7 +15,7 @@ export class Attempt {
 
   @ApiProperty()
   @Prop({ default: null })
-  imageId: string;
+  imageUrl: string;
 
   @ApiProperty()
   @Prop({ default: null })

@@ -27,7 +27,7 @@ const AttemptScreen = () => {
     <div className="flex flex-col justify-start items-center border-r border-l border-gray-300 h-screen w-full pb-16">
       <div className="container py-4 flex flex-col justify-between flex-1">
         <p className="text-2xl font-rumraisin">You where found</p>
-        <img className="w-96 h-96 object-cover rounded-xl" height="512px" width="512px" src={`${process.env.REACT_APP_API_URL}/attempt/${data[0]?.imageId}`} alt={`${user?.target?.userName}`}/>
+        <img className="w-96 h-96 object-cover rounded-xl" height="512px" width="512px" src={data[0]?.imageUrl} alt={`${user?.target?.userName}`}/>
 
         <TitleAndText
           title="Your question:"

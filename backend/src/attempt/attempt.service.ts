@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -8,6 +9,7 @@ export class AttemptService {
   constructor(
     @InjectModel('Attempt') private AttemptModel: Model<any>,
     private readonly userService: UserService,
+    private cloudinary: CloudinaryService,
   ) {}
 
   async getAttemptByTargetId(id) {
@@ -30,18 +32,21 @@ export class AttemptService {
     return uncheckedAttempts;
   }
 
-  async addAttempt(id, imageId, { answer, killer }) {
+  async addAttempt(id, file, { answer, killer }) {
     const target = await this.userService.getTarget(id);
-
     const uncheckedAttempts = await this.getAttemptByTargetId(target._id);
 
     if (uncheckedAttempts.length > 0) {
       throw new BadRequestException('The target already has an attempt on him');
     }
 
+    const uploadedFile = await this.cloudinary.uploadImage(file).catch(() => {
+      throw new BadRequestException('Invalid file type.');
+    });
+
     const newAttempt = new this.AttemptModel({
       target,
-      imageId,
+      imageUrl: uploadedFile.url,
       answer,
       killer,
     });
@@ -52,9 +57,12 @@ export class AttemptService {
     const attempt = await this.AttemptModel.findById(id);
 
     if (approved) {
-      const user = await this.userService.getTarget(attempt.target._id);
-      user.killed = true;
-      user.save();
+      const target = await this.userService.getTarget(attempt.target._id);
+      const killer = await this.userService.getTarget(attempt.killer._id);
+      target.killed = true;
+      target.save();
+      killer.target = target.target._id;
+      killer.save();
     }
 
     attempt.approved = approved;

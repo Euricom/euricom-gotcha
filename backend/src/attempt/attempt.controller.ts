@@ -9,8 +9,6 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { extname } from 'path';
-import { diskStorage } from 'multer';
 import { AttemptService } from './attempt.service';
 
 @Controller('attempt')
@@ -38,21 +36,12 @@ export class AttemptController {
   }
 
   @Post(':id')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './image',
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          return cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
-    }),
-  )
-  addAttempt(@Param('id') id: string, @UploadedFile() file, @Body() body) {
-    return this.attemptService.addAttempt(id, file.path, body);
+  @UseInterceptors(FileInterceptor('file'))
+  addAttempt(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body,
+  ) {
+    return this.attemptService.addAttempt(id, file, body);
   }
 }
