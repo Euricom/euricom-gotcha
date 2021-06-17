@@ -1,12 +1,9 @@
-import React from 'react'
-import { useQueryClient } from 'react-query';
+import React from 'react';
 import TitleAndText from '../components/TitleAndText'
 import { useAppState } from '../hooks/useAppState';
 
 const TargetScreen = () => {
   const { user } = useAppState();
-  const queryClient = useQueryClient()
-  queryClient.resetQueries();
   return (
     <div className="flex flex-col justify-start items-center border-r border-l border-gray-300 h-screen w-full pb-16 ">
       <main className="container border-b py-4 border-gray-300">

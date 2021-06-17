@@ -11,7 +11,8 @@ const useGetUser = () => {
 
   return useMutation(getUser, { onSuccess: (user: any) => {
     queryClient.setQueryData('user', user)
-  }});
+  },
+});
 }
 
 export default useGetUser;

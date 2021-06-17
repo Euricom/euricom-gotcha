@@ -1,5 +1,12 @@
 // Hook (use-appState.js)
-import React, { useEffect, useContext, createContext, useMemo, PropsWithChildren, useState } from "react";
+import React, {
+  useEffect,
+  useContext,
+  createContext,
+  useMemo,
+  PropsWithChildren,
+  useState,
+} from "react";
 import { useMsalAuthentication } from "@azure/msal-react";
 import { InteractionType } from "@azure/msal-browser";
 import useLocalStorage from "./useLocalStorage";
@@ -22,7 +29,7 @@ export const useAppState = () => {
 };
 // Provider hook that creates appState object and handles state
 function useProvideAppState() {
-  const [state, setState] = useState({})
+  const [state, setState] = useState({});
 
   const request = useMemo(
     () => ({
@@ -47,7 +54,7 @@ function useProvideAppState() {
     JSON.stringify(result)
   );
 
-  const {mutate, data} = useGetUser();
+  const { mutate, data } = useGetUser();
 
   useEffect(() => {
     if (result) {
@@ -57,13 +64,13 @@ function useProvideAppState() {
 
   useEffect(() => {
     axios.defaults.headers.common.Authorization = `Bearer ${account?.accessToken}`;
-    mutate({
-      email: account?.account?.username,
-      userName: account?.account?.name,
-    });
-  }, [account, mutate])
-
-
+    if (account?.account?.username && account?.account?.name) {
+      mutate({
+        email: account?.account?.username,
+        userName: account?.account?.name,
+      });
+    }
+  }, [account, mutate]);
 
   // Return the user object and appState methods
   return {

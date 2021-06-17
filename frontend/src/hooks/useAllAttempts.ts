@@ -1,11 +1,15 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import { useAppState } from './useAppState';
 
 export const getAllAttempts = async () => {
   const { data } = await axios.get(`/attempt`);
   return data;
 };
 
-const useGetAllAttempt = () => useQuery(['attempts'], getAllAttempts);
+const useGetAllAttempt = () => {
+  const { user } = useAppState();
+  return useQuery(['attempts'], getAllAttempts, { enabled: !!user});
+}
 
 export default useGetAllAttempt;

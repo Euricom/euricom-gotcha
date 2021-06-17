@@ -10,7 +10,8 @@ const useUpdateAttempt = () => {
   const queryClient = useQueryClient()
   return useMutation(updateAttempt, {
     onSuccess: (data: any) => {
-      queryClient.resetQueries(['attempt', 'user']);
+      queryClient.invalidateQueries(['attempt', 'user']);
+      queryClient.invalidateQueries(['user']);
     }
   });
 }
