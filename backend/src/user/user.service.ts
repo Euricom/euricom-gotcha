@@ -62,7 +62,7 @@ export class UserService {
     const user = await this.UserModel.findById(id);
     const targetId = user?.target?._id;
     if (!targetId) {
-      throw new BadRequestException("You don't seem  to have any target");
+      throw new BadRequestException('No id passed to be killed');
     }
     const target = await this.UserModel.findById(targetId);
     target.killed = true;
@@ -113,7 +113,6 @@ export class UserService {
         },
       );
 
-      // console.log(data)
       this.addUsers(data.value);
     } catch (err) {
       console.log(err);
