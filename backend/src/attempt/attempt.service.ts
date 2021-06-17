@@ -54,7 +54,10 @@ export class AttemptService {
   }
 
   async updateAttempt(approved, id) {
-    const attempt = await this.AttemptModel.findById(id);
+    const attempt = await this.AttemptModel.findById(id).populate([
+      'target',
+      'killer',
+    ]);
 
     if (approved) {
       const target = await this.userService.getTarget(attempt.target._id);

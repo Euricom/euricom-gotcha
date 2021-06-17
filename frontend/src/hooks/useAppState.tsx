@@ -54,23 +54,17 @@ function useProvideAppState() {
     JSON.stringify(result)
   );
 
-  const { mutate, data } = useGetUser();
+  const { data } = useGetUser();
 
   useEffect(() => {
     if (result) {
       setAccount(result);
     }
-  }, [result, setAccount, mutate]);
+  }, [result, setAccount]);
 
   useEffect(() => {
     axios.defaults.headers.common.Authorization = `Bearer ${account?.accessToken}`;
-    if (account?.account?.username && account?.account?.name) {
-      mutate({
-        email: account?.account?.username,
-        userName: account?.account?.name,
-      });
-    }
-  }, [account, mutate]);
+  }, [account]);
 
   // Return the user object and appState methods
   return {
