@@ -6,13 +6,13 @@ interface KilledByProps {
 
 // We don't need a XX Mb lib to solve this yet :D
 const weekday=new Array(7);
-weekday[0]="Mon";
-weekday[1]="Tue";
-weekday[2]="Wed";
-weekday[3]="Thu";
-weekday[4]="Fri";
-weekday[5]="Sat";
-weekday[6]="Sun";
+weekday[0]="Sun";
+weekday[1]="Mon";
+weekday[2]="Tue";
+weekday[3]="Wed";
+weekday[4]="Thu";
+weekday[5]="Fri";
+weekday[6]="Sat";
 
 const KilledBy = ({ attempt }: KilledByProps) => {
   const approvedDate = new Date(attempt?.approveDate);
@@ -22,7 +22,7 @@ const KilledBy = ({ attempt }: KilledByProps) => {
       <div className="w-96 max-w-full rounded-xl mb-2">
         <img className="rounded-xl" src={attempt?.imageUrl}alt={attempt?.target?.userName}/>
       </div>
-      <span className="text-gray-400 mr-2">{`${weekday[day]} ${hours}:${minutes}`} :</span>
+      <span className="text-gray-400 mr-2">{`${weekday[day]}, ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`}</span>
       <p className="font-bold"><span className="text-red-500">{attempt?.target?.userName}</span> was found by <span className="text-green-500">{attempt?.killer?.userName}</span></p>
     </div>
   )

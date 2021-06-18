@@ -10,9 +10,9 @@ const TargetScreen = () => {
     <div className="flex flex-col justify-start items-center border-r border-l border-gray-300 h-screen w-full pb-16 ">
       <main className="container border-b py-4 border-gray-300">
         <p className="font-rumraisin text-5xl py-2">Your target:</p>
-        <p className={`font-roboto text-3xl font-bold ${user?.killed ? 'text-red-500' : 'text-green-500' } mb-4`}>
+        <p className={`font-roboto text-3xl font-bold ${user?.killed && 'text-red-500'} ${!!targetAttempt?.data?.length && 'text-yellow-500'} ${!user?.killed && !targetAttempt?.data?.length && 'text-green-500'} mb-4`}>
           {user?.killed && 'No Target'}
-          {!!targetAttempt?.data?.length && 'Awaiting aproval'}
+          {!!targetAttempt?.data?.length && 'Awaiting approval'}
           {!user?.killed && !targetAttempt?.data?.length && user?.target?.userName}
           </p>
         <TitleAndText
