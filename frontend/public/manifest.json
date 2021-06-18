@@ -1,6 +1,6 @@
 {
-  "short_name": "Euri Gotcha",
-  "name": "Euricom Gotcha app",
+  "short_name": "Gotcha",
+  "name": "Gotcha app",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

@@ -14,9 +14,8 @@ const InfoScreen = () => {
       <main className="container  flex justify-center items-center border-b py-4 border-gray-300">
       <p className="text-2xl font-rumraisin">Gotcha feed</p>
       </main>
-      <section className="container border-b py-4 border-gray-300 flex-1">
-        { data?.map((attempt:any) => <KilledBy time={new Date(attempt?.approveDate)} text={<><span className="text-red-500">{attempt?.target?.userName}</span> found by <span className="text-green-500">{attempt?.killer?.userName}</span> </>}></KilledBy>)}
-
+      <section className="container border-b py-4 border-gray-300 flex-1 overflow-auto space-y-4">
+        { data?.map((attempt:any) => <KilledBy key={attempt?.target?._id} attempt={attempt}></KilledBy>)}
       </section>
       <section className="container flex justify-between border-b py-4 border-gray-300">
         <div><span className="flex items-center font-roboto text-xl font-medium text-green-500"><User className="mr-2"/> {playerCount.data.playing} playing</span></div>
