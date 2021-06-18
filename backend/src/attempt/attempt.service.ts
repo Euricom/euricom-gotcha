@@ -61,10 +61,10 @@ export class AttemptService {
 
     if (approved) {
       const target = await this.userService.getTarget(attempt.target._id);
-      const killer = await this.userService.getTarget(attempt.killer._id);
+      const killer = await this.userService.getTarget(attempt.killer);
       target.killed = true;
       target.save();
-      killer.target = target.target._id;
+      killer.target = attempt.target._id;
       killer.save();
     }
 
