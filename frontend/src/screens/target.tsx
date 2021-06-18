@@ -23,11 +23,11 @@ const TargetScreen = () => {
       <section className="container py-4">
         <TitleAndText
             title="Rules:"
-            text={<><p className="my-4">Take a picture of your taget to shoot them, the targets face has to be clearly visible! After you shot your target fill in your answer to their question.
-            With a correct answer no mercy will be shown and your target will be killed.</p>
-            <p className="mb-4">If you are shot a screen will pop up saying you got shot you'll have to check if your face is visible and correct answer is given, we trust on your honesty.(group pictures don't count)</p>
+            text={<><p className="my-4">When taking a selfie of your target, both your and the targets face have to be clearly visible! After your selfie is taken you can give the answer to their question.
+            If both the selfie and answer are valid your target will be eliminated.</p>
+            <p className="mb-4">If you are found a check icon will be displayed in the navigation and you'll have to validate the selfie displayed with the answer honestly.</p>
 
-            <p>You can always check the kill feed for remaining players and a kill feed.Good luck hunting!</p></>}
+            <p>You can always check the feed to wee who was found and how many are still playing.</p></>}
           />
       </section>
     </div>
