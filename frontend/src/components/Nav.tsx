@@ -28,14 +28,15 @@ const NavButton = ({ icon, href = "" }: NavButtonProps) => {
 
 const Nav = () => {
   const { user } = useAppState();
-  const { data } = useGetAttempt(user?._id);
+  const currentUserAttempt = useGetAttempt(user?._id);
+  const targetAttempt = useGetAttempt(user?.target?._id);
 
   return (
     <nav className="absolute bottom-0 container text-gray-500 bg-gray-100 h-16 flex justify-around items-center border-t border-gray-200">
       <NavButton href="/target" icon={<Crosshair />} />
-      {!user?.killed && !!data?.length && <NavButton href="/attempt" icon={<Check/>}></NavButton>}
-      {user?.killed && <NavButton href="/" icon={<CameraOff/>}></NavButton>}
-      {!user?.killed && !data?.length && <NavButton href="/camera" icon={<Camera className="w-6 h-6"/>}></NavButton>}
+      {!user?.killed && !!currentUserAttempt?.data?.length && <NavButton href="/attempt" icon={<Check/>}></NavButton>}
+      {(user?.killed || !!targetAttempt?.data?.length) && !currentUserAttempt?.data?.length && <NavButton href="/" icon={<CameraOff/>}></NavButton>}
+      {!user?.killed && !targetAttempt?.data?.length && !currentUserAttempt?.data?.length && <NavButton href="/camera" icon={<Camera className="w-6 h-6"/>}></NavButton>}
       <NavButton href="/info" icon={<Info />} />
     </nav>
   );
