@@ -22,20 +22,23 @@ export class UserService {
   private readonly logger = new Logger('UserService');
   private readonly cca = new msal.ConfidentialClientApplication(config);
 
+  // Fetch the current user's data
   async getCurrentUser(id) {
-    return await this.UserModel.findOne({ id }).populate('target', [
+    return await this.UserModel.findOne({ _id: id }).populate('target', [
       'userName',
       'question',
     ]);
   }
 
+  // Fetch the Users target
   async getTarget(id) {
     return await this.UserModel.findOne(
-      { _id: id },
+      { target: id },
       { userName: 1, question: 1 },
     );
   }
 
+  // Check if user exists, if not we add him to our app
   async addUser({ userName, email }) {
     let user = await this.UserModel.findOne({ email }).populate('target', [
       'userName',
@@ -43,6 +46,7 @@ export class UserService {
     ]);
 
     if (!user) {
+      // throw new BadRequestException('User does not exist');
       const newUser = new this.UserModel({
         userName,
         email,
@@ -58,6 +62,7 @@ export class UserService {
     return user;
   }
 
+  // Kill/Gotcha the current users target
   async killTarget(id) {
     const user = await this.UserModel.findById(id);
     const targetId = user?.target?._id;
@@ -65,19 +70,19 @@ export class UserService {
       throw new BadRequestException('No id passed to be killed');
     }
     const target = await this.UserModel.findById(targetId);
-    target.killed = true;
-    target.save();
 
     user.target = target.target;
     user.save();
   }
 
+  // Add our list of users from azure to our database
   async addUsers(users: any[]) {
     users.forEach((user: any) => {
       this.addUser({ userName: user.displayName, email: user.mail });
     });
   }
 
+  // Get a numbers of playing and dead users
   async getFeedCount() {
     const users = await this.UserModel.find();
     let killCount = 0;
@@ -94,6 +99,7 @@ export class UserService {
     return { playing: aliveCount, found: killCount };
   }
 
+  // Fetch users from Azure group to our apps database
   async fetchAzureUsers() {
     const clientCredentialRequest = {
       scopes: ['https://graph.microsoft.com/.default'],
