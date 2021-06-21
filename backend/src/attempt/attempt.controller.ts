@@ -32,7 +32,7 @@ export class AttemptController {
 
   @Post('/update/:id')
   updateAttempt(@Param('id') id: string, @Body() body: any) {
-    this.attemptService.updateAttempt(body.approved, id);
+    return this.attemptService.updateAttempt(body.approved, id);
   }
 
   @Post(':id')

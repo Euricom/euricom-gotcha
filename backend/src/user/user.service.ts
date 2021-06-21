@@ -38,6 +38,15 @@ export class UserService {
     );
   }
 
+  async getAlivePlayers() {
+    const playing = await this.UserModel.find({ killed: false });
+    // Only return something if there is 1 player left
+    if (playing.length > 1) {
+      return [];
+    }
+    return playing;
+  }
+
   // Check if user exists, if not we add him to our app
   async addUser({ userName, email }) {
     let user = await this.UserModel.findOne({ email }).populate('target', [
@@ -84,17 +93,12 @@ export class UserService {
 
   // Get a numbers of playing and dead users
   async getFeedCount() {
-    const users = await this.UserModel.find();
-    let killCount = 0;
-    let aliveCount = 0;
-
-    users.forEach((user: any) => {
-      if (user.killed) {
-        killCount++;
-      } else {
-        aliveCount++;
-      }
-    });
+    const killCountPromise = this.UserModel.countDocuments({ killed: true });
+    const aliveCountPromise = this.UserModel.countDocuments({ killed: false });
+    const [killCount, aliveCount] = await Promise.all([
+      killCountPromise,
+      aliveCountPromise,
+    ]);
 
     return { playing: aliveCount, found: killCount };
   }

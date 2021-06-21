@@ -23,16 +23,11 @@ export class AttemptService {
 
   // Get all approved attempts to display in our feed
   async getAllAttempts() {
-    const attempts = await this.AttemptModel.find(
-      {},
+    return await this.AttemptModel.find(
+      { isChecked: true, approved: true },
       {},
       { sort: '-approveDate' },
     ).populate(['target', 'killer']);
-    const uncheckedAttempts = attempts.filter(
-      (attempt) => attempt?.isChecked && attempt?.approved,
-    );
-
-    return uncheckedAttempts;
   }
 
   // Create a new attempt on a target
@@ -73,15 +68,15 @@ export class AttemptService {
       const killer = await this.userService.getCurrentUser(
         attempt?.killer?._id,
       );
-      target.killed = true;
-      target.save();
       killer.target = attempt.target._id;
-      killer.save();
+      await killer.save();
+      target.killed = true;
+      await target.save();
     }
 
     attempt.approved = approved;
     attempt.approveDate = new Date();
     attempt.isChecked = true;
-    attempt.save();
+    return await attempt.save();
   }
 }
