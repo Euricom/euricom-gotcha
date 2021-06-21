@@ -10,6 +10,11 @@ export class UserController {
     return this.userService.getFeedCount();
   }
 
+  @Get('/alive')
+  getAlivePlayers() {
+    return this.userService.getAlivePlayers();
+  }
+
   @Get(':id')
   getTarget(@Param('id') id) {
     return this.userService.getTarget(id);
