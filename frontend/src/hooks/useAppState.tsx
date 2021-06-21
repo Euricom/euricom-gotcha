@@ -54,8 +54,7 @@ function useProvideAppState() {
     JSON.stringify(result)
   );
 
-  const { data } = useGetUser();
-
+  const { data } = useGetUser(result);
   useEffect(() => {
     if (result) {
       setAccount(result);

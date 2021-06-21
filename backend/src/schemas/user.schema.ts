@@ -9,7 +9,7 @@ export class User {
   userName: string;
 
   @ApiProperty()
-  @Prop({ default: null })
+  @Prop({ default: null, unique: true })
   email: string;
 
   @ApiProperty()
