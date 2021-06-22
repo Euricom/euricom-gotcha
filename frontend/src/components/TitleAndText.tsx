@@ -8,7 +8,7 @@ interface TitleAndTextProps {
 const TitleAndText = ({title, text} : TitleAndTextProps) => {
   const isTextComponent = isValidElement(text)
   return (
-    <div>
+    <div className="my-4">
       <p className="font-roboto font-black text-lg">{title}</p>
       {isTextComponent ? <div>{text}</div> : <p className="font-roboto text-base">{text}</p>}
     </div>
