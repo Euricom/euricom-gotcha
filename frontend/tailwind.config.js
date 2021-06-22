@@ -15,7 +15,18 @@ module.exports = {
         '2xl': '6rem',
       },
     },
-    extend: {},
+    extend: {
+      height: {
+        sm: '8px',
+        md: '16px',
+        lg: '24px',
+        xl: '48px',
+        screenNav: 'calc(100vh - 64px)'
+       },
+       animation: {
+        'spin-slow': 'spin 3s linear infinite',
+       }
+    },
   },
   variants: {
     extend: {},

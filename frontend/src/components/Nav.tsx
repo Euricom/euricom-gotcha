@@ -32,7 +32,7 @@ const Nav = () => {
   const targetAttempt = useGetAttempt(user?.target?._id);
 
   return (
-    <nav className="absolute bottom-0 container text-gray-500 bg-gray-100 h-16 flex justify-around items-center border-t border-gray-200">
+    <nav className="fixed bottom-0 container text-gray-500 bg-gray-100 h-16 flex justify-around items-center border-t border-r border-l border-gray-300">
       <NavButton href="/target" icon={<Crosshair />} />
       {!user?.killed && !!currentUserAttempt?.data?.length && <NavButton href="/attempt" icon={<Check/>}></NavButton>}
       {(user?.killed || !!targetAttempt?.data?.length) && !currentUserAttempt?.data?.length && <NavButton href="/" icon={<CameraOff/>}></NavButton>}
