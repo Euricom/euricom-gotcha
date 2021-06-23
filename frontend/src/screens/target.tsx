@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useQueryClient } from 'react-query';
 import TitleAndText from '../components/TitleAndText'
 import { useAppState } from '../hooks/useAppState';
 import useGetAttempt from '../hooks/useAttempts';
 
 const TargetScreen = () => {
   const { user } = useAppState();
+  const queryClient = useQueryClient()
+  useEffect(() => {
+    queryClient.invalidateQueries('user')
+  }, [])
   const targetAttempt = useGetAttempt(user?.target?._id);
   return (
     <div className="flex flex-col justify-start items-center border-r border-l border-gray-300 h-screenNav w-full">

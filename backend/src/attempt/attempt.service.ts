@@ -68,7 +68,7 @@ export class AttemptService {
       const killer = await this.userService.getCurrentUser(
         attempt?.killer?._id,
       );
-      killer.target = attempt.target._id;
+      killer.target = target.target._id;
       await killer.save();
       target.killed = true;
       await target.save();
