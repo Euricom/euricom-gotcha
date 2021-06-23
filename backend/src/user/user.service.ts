@@ -24,7 +24,7 @@ export class UserService {
 
   // Fetch the current user's data
   async getCurrentUser(id) {
-    return await this.UserModel.findOne({ _id: id }).populate('target', [
+    return this.UserModel.findOne({ _id: id }).populate('target', [
       'userName',
       'question',
     ]);
@@ -129,5 +129,29 @@ export class UserService {
     }
 
     this.logger.debug('Azure users fetched');
+  }
+
+  async assignTargets() {
+    const users = await this.UserModel.find();
+
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return [...arr];
+    }
+
+    const shuffledArray = shuffleArray(users);
+
+    shuffledArray.forEach((user, index) => {
+      if (index === shuffledArray.length - 1) {
+        user.target = shuffledArray[0];
+        return;
+      }
+
+      user.target = shuffledArray[index + 1]._id;
+      user.save();
+    });
   }
 }

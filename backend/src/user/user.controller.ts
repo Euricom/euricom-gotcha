@@ -33,9 +33,18 @@ export class UserController {
   @Post('/fetchAzureUsers')
   fetchAzureUsers(@Body() body: any) {
     if (body.secKey === process.env.SECKEY) {
-      this.userService.fetchAzureUsers();
+      return this.userService.fetchAzureUsers();
     } else {
       console.log('Incorrect seckey passed to generate users');
+    }
+  }
+
+  @Post('/assignTargets')
+  assignTargets(@Body() body: any) {
+    if (body.secKey === process.env.SECKEY) {
+      return this.userService.assignTargets();
+    } else {
+      console.log('Incorrect seckey passed to assign user targets');
     }
   }
 }
