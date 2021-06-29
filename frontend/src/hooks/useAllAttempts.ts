@@ -9,7 +9,7 @@ export const getAllAttempts = async () => {
 
 const useGetAllAttempt = () => {
   const { user } = useAppState();
-  return useQuery(['attempts'], getAllAttempts, { enabled: !!user});
+  return useQuery(['attempts'], getAllAttempts, { enabled: !!user, refetchInterval:5000});
 }
 
 export default useGetAllAttempt;

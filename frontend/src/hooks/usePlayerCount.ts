@@ -9,7 +9,7 @@ export const getPlayerCount = async () => {
 
 const useGetPlayerCount = () => {
   const { user } = useAppState();
-  return useQuery(['user/count'], getPlayerCount, { initialData: {playing: 0, found: 0}, enabled: !!user});
+  return useQuery(['user/count'], getPlayerCount, { placeholderData: {playing: 0, found: 0}, enabled: !!user, refetchInterval:5000});
 }
 
 export default useGetPlayerCount;
