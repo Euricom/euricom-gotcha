@@ -9,7 +9,7 @@ const TargetScreen = () => {
   const queryClient = useQueryClient()
   useEffect(() => {
     queryClient.invalidateQueries('user')
-  }, [])
+  }, [queryClient])
   const targetAttempt = useGetAttempt(user?.target?._id);
   return (
     <div className="flex flex-col justify-start items-center border-r border-l border-gray-300 h-screenNav w-full">
