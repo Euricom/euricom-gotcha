@@ -19,7 +19,7 @@ const useGetUser = (result: any) => {
         userName: data?.account?.name,
         email: data?.account?.username,
       }),
-    { enabled: !!data?.account }
+    { enabled: !!data?.account, refetchInterval: 5000 }
   );
 };
 

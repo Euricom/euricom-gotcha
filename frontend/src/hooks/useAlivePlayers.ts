@@ -10,7 +10,7 @@ export const getAlive = async () => {
 
 const useGetAlive = () => {
   const { user } = useAppState();
-  return useQuery(['user/alive'], getAlive, {initialData: {},enabled: !!user, refetchInterval:60000});
+  return useQuery(['user/alive'], getAlive, {initialData: {},enabled: !!user, refetchInterval:5000});
 }
 
 export default useGetAlive;

@@ -10,7 +10,7 @@ export const getAttempt = async (id: any) => {
 
 const useGetAttempt = (id:any) => {
   const { user } = useAppState();
-  return useQuery(['attempt', id], () => getAttempt(id), {initialData: {},enabled: (!!user && !user?.killed), refetchInterval:60000});
+  return useQuery(['attempt', id], () => getAttempt(id), {initialData: {},enabled: (!!user && !user?.killed), refetchInterval:5000});
 }
 
 export default useGetAttempt;
